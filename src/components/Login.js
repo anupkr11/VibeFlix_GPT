@@ -4,18 +4,24 @@ import { validation } from "../utils/validation";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  updateProfile,
 } from "firebase/auth";
 import { auth } from "../utils/firebase";
+import { useNavigate } from "react-router-dom";
+import { addUser } from "../utils/userSlice";
+import { useDispatch } from "react-redux";
 
 const Login = () => {
   const [isSignIn, setIsSignIn] = useState(true);
   const [err, setErr] = useState("");
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleSingUp = () => {
     console.log("Sign Up clicked");
     setIsSignIn(!isSignIn);
   };
-
+  const name = useRef(null);
   const email = useRef(null);
   const password = useRef(null);
 
@@ -25,8 +31,8 @@ const Login = () => {
     const validationResult = validation(emailValue, passwordValue);
 
     setErr(validationResult);
-    if(validationResult) {
-      return
+    if (validationResult) {
+      return;
     }
 
     if (!isSignIn) {
@@ -35,7 +41,30 @@ const Login = () => {
         .then((userCredential) => {
           // Signed up
           const user = userCredential.user;
-          console.log(user)
+          updateProfile(user, {
+            displayName: name.current.value,
+            photoURL: "https://avatars.githubusercontent.com/u/99500785?v=4",
+          })
+            .then(() => {
+              // Profile updated!
+              const { uid, email, displayName, photoURL } = auth.currentUser;
+              dispatch(
+                addUser({
+                  uid: uid,
+                  email: email,
+                  displayName: displayName,
+                  photoURL: photoURL,
+                })
+              );
+              navigate("/browse");
+              // ...
+            })
+            .catch((error) => {
+              // An error occurred
+              // ...
+            });
+          console.log(user);
+
           // ...
         })
         .catch((error) => {
@@ -44,14 +73,24 @@ const Login = () => {
           setErr(errorCode + ": " + errorMessage);
           // ..
         });
-      }
-      //sign in
-      else{
+    }
+    //sign in
+    else {
       signInWithEmailAndPassword(auth, emailValue, passwordValue)
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-          console.log(user)
+          console.log(user);
+          const { uid, email, displayName, photoURL } = auth.currentUser;
+              dispatch(
+                addUser({
+                  uid: uid,
+                  email: email,
+                  displayName: displayName,
+                  photoURL: photoURL,
+                })
+              );
+          navigate("/browse");
           // ...
         })
         .catch((error) => {
@@ -59,7 +98,7 @@ const Login = () => {
           const errorMessage = error.message;
           setErr(errorCode + ": " + errorMessage);
         });
-  }
+    }
   };
   return (
     <>
@@ -80,6 +119,7 @@ const Login = () => {
 
         {!isSignIn && (
           <input
+          ref={name}
             type="text"
             placeholder="Enter your Name"
             className="p-6 text-xl my-6 w-full bg-gray-950 border border-white rounded-lg"
