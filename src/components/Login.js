@@ -7,14 +7,13 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth } from "../utils/firebase";
-import { useNavigate } from "react-router-dom";
 import { addUser } from "../utils/userSlice";
 import { useDispatch } from "react-redux";
+import { mainPHOTO, userLOGO } from "../utils/constants";
 
 const Login = () => {
   const [isSignIn, setIsSignIn] = useState(true);
   const [err, setErr] = useState("");
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleSingUp = () => {
@@ -43,7 +42,7 @@ const Login = () => {
           const user = userCredential.user;
           updateProfile(user, {
             displayName: name.current.value,
-            photoURL: "https://avatars.githubusercontent.com/u/99500785?v=4",
+            photoURL: userLOGO,
           })
             .then(() => {
               // Profile updated!
@@ -56,7 +55,6 @@ const Login = () => {
                   photoURL: photoURL,
                 })
               );
-              navigate("/browse");
               // ...
             })
             .catch((error) => {
@@ -90,7 +88,6 @@ const Login = () => {
                   photoURL: photoURL,
                 })
               );
-          navigate("/browse");
           // ...
         })
         .catch((error) => {
@@ -105,7 +102,7 @@ const Login = () => {
       <Header />
       <div className="absolute">
         <img
-          src="https://assets.nflxext.com/ffe/siteui/vlv3/d615dd28-a1ac-4a03-995a-022d24e7b367/web/IN-en-20251124-TRIFECTA-perspective_263f0625-557f-436a-9d4f-b93224d2d6d2_small.jpg"
+          src={mainPHOTO}
           alt="mainPhoto"
         />
       </div>

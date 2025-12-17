@@ -2,6 +2,12 @@ VibeFlixGPT – Project Overview
 - Initial Setup
 - Created React App (using Create React App / Vite)
 - Configured TailwindCSS
+- Navigation using react-router-dom
+- SignIn/SignUp using firebase
+- Authentication using firebase
+- adding user data in Redux store
+- getting api data through tmbd
+- storing movies data in redux store and update the store
 
 Features
  - Authentication
