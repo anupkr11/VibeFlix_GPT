@@ -4,6 +4,7 @@ import { auth } from "../utils/firebase";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser, removeUser } from "../utils/userSlice";
+import { userLOGO } from "../utils/constants";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -11,7 +12,7 @@ const Header = () => {
   const user = useSelector(store => store.user);
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/auth.user
@@ -32,6 +33,9 @@ const Header = () => {
         // ...
       }
     });
+
+    //this will be called when componenmt unmounts and unsbscribe onauthchanged
+    return () => unsubscribe();
   }, []);
 
 
@@ -54,7 +58,7 @@ const Header = () => {
           alt="logo"
         />
         {user && <div className="flex items-center gap-6">
-          <img src={user.photoURL} alt="usericon" className="w-12 h-12" />
+          <img src={userLOGO} alt="usericon" className="w-12 h-12" />
           <button
             onClick={handleSignOut}
             className="bg-red-700 px-6 py-2 rounded-lg text-white font-bold"
