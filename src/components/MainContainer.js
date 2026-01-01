@@ -9,12 +9,14 @@ const MainContainer = () => {
 
   const mainMovie = movies[1];
   const { original_title, overview, id } = mainMovie;
+
   return (
-    <>
-      <VideoTitle title={original_title} overview={overview} />
+    <div className="relative w-screen h-screen overflow-hidden">
       <VideoBackground movieId={id} />
-    </>
+      <VideoTitle title={original_title} overview={overview} />
+    </div>
   );
 };
 
 export default MainContainer;
+

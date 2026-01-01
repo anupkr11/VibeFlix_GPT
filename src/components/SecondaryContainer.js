@@ -1,9 +1,16 @@
-import React from 'react'
+import React from "react";
 
 const SecondaryContainer = () => {
   return (
-    <div>SecondaryContainer</div>
-  )
-}
+    <div>
+      {/* MovieList - Popular
+            MovieCard * n
+          MovieList - Now Playing
+          MovieList - Trending
+          MovieList - Horror */
+      }
+    </div>
+  );
+};
 
-export default SecondaryContainer
+export default SecondaryContainer;
