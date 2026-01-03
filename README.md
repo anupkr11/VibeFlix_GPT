@@ -3,11 +3,32 @@ VibeFlixGPT – Project Overview
 - Created React App (using Create React App / Vite)
 - Configured TailwindCSS
 - Navigation using react-router-dom
-- SignIn/SignUp using firebase
 - Authentication using firebase
-- adding user data in Redux store
-- getting api data through tmbd
-- storing movies data in redux store and update the store
+- Implement Sign In/Sign Up user API
+- Created Redux Store with userSlice
+- Implemented Sign out
+- Update Profile
+- BugFix: Sign up user displayName and profile picture update
+- BugFix: if the user is not logged in Redirect /browse to Login Page and vice-versa
+- Unsubscribed to the onAuthStateChanged callback
+- Add hardcoded values to the constants file
+- Register TMDB API & create an app & get access token
+- Get Data from TMDB now playing movies list API
+- Custom Hook for Now Playing Movies
+- Create movieSlice
+- Update store with movies Data
+- Planning for MainContainer & secondary container
+- Fetch Data for Trailer Video
+- Update Store with Trailer Video Data
+- Embedded the Youtube video and make it autoplay and mute
+- Tailwind Classes to make Main Container look awesome
+- Build Secondary Component
+- Build Movie List
+- build Movie Card
+- TMDB Image CDN URL
+- Made the Browse page amazing with Tailwind CSS
+- usePopularMovies Custom hook
+
 
 Features
  - Authentication
